@@ -2,32 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.myContainer {
+  display: grid;
+  grid-template-columns: 115px 340px 2fr;
+  grid-template-rows: auto auto; 
+  grid-gap: 10px; 
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.leftNav {
+  grid-column: 1;
+  grid-row: span 2; 
+}
+
+.navBar {
+  grid-column: 2 / span 2;
+  grid-row: 1; 
+}
+
+/* Responsive Layout for screens up to 1024px */
+@media (max-width: 1024px) {
+  .myContainer {
+    grid-template-columns: 100px 1fr;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .navBar {
+    grid-column: 1 / span 2; /* Span both columns */
+    grid-row: auto;
   }
 }

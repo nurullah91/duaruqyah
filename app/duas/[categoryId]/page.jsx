@@ -7,7 +7,7 @@ import dynamic from 'next/dynamic';
 
 // Importing curd buttons in client side cause Card Buttons is client component
 const CardButtons = dynamic(() => import('@/app/Components/CardButtons/CardButtons'), {
-  ssr: false, // Disable server-side rendering
+  ssr: false, // Disable server-side rendering for client component import
 });
 
 

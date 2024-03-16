@@ -21,9 +21,14 @@
 }
 
 /* Player control button styles */
-input[type='range']::range-progress {
-  background-color: #00a661; 
+.audio-control input::-webkit-slider-thumb{
+height: 15px;
+width: 15px;
+border-radius: 50%;
+background: #00A661;
+-webkit-appearance: none;
 }
+
 /* Responsive Layout for screens up to 1024px */
 @media (max-width: 1024px) {
   .myContainer {

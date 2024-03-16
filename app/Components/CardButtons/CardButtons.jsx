@@ -84,6 +84,8 @@ const CardButtons = ({ dua }) => {
     )}`;
   };
 
+
+  // Bookmark code
   let previousBookmarks = null;
   if (typeof window !== "undefined") {
     previousBookmarks = localStorage.getItem("bookmarks");
@@ -255,7 +257,7 @@ const CardButtons = ({ dua }) => {
             </button>
             <audio ref={audioRef} src={dua.audio} />
             {play && (
-              <div>
+              <div className="audio-control">
                 <input
                   type="range"
                   min={0}
@@ -266,9 +268,9 @@ const CardButtons = ({ dua }) => {
                     audioRef.current.currentTime = time;
                     setCurrentPlayTime(time);
                   }}
-                  className="w-[130px] bg-slate-300 h-1 rounded-full outline-none"
+                  className=" appearance-none w-[130px] bg-slate-300 h-1 rounded-full outline-none"
                 />
-                <span className="text-slate-600 mr-4">
+                <span className="text-slate-600 mx-4">
                   {FormatTime(duration - currentPlayTime)}
                 </span>
                 <button onClick={() => setLoop(!loop)}>

@@ -41,17 +41,18 @@ const Categories = async () => {
                   Categories
                 </h4>
                 <form>
-                  <div className="w-full m-3">
+                  <div className="mx-4 mt-3 flex items-center border p-3 rounded-md border-slate-300 focus:border-green-500">
+                  <div className="mr-2"><IoIosSearch className='text-2xl'/></div>
                     <input
                       type="text"
                       placeholder="Search categories"
-                      className="px-3 py-2 border border-slate-300 rounded-md"
+                      className="w-full flex-shrink rounded-md border-none outline-none"
                     />
+                    
                   </div>
                 </form>
               </div>
-
-              <div className="p-4">
+              <div className="p-4 h-[calc(100vh-210px)] overflow-auto">
                 {categories.map((category) => (
                   <Link href={`/duas/${category.cat_id}`} key={category.id}>
                     <div className="mt-5 flex gap-4">

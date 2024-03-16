@@ -28,10 +28,10 @@ const CategoryDua = async ({ params }) => {
   
 
     return (
-        <div>
+        <div className='h-[calc(100vh-80px)]'>
             {/* React hot toast */}
             <Toaster/>
-            <div>
+            <div className='h-full overflow-scroll'>
                 {
                     duas.map((dua, index) => <div id={dua.dua_id} className='mb-5 p-6 bg-base-100 rounded-xl' key={dua.dua_id}>
 

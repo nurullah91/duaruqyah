@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 .myContainer {
   display: grid;
   grid-template-columns: 115px 340px 2fr;
@@ -11,7 +12,7 @@
 
 .leftNav {
   grid-column: 1;
-  grid-row: span 2; 
+  grid-row: span 2;
 }
 
 .navBar {
@@ -19,6 +20,10 @@
   grid-row: 1; 
 }
 
+/* Player control button styles */
+input[type='range']::range-progress {
+  background-color: #00a661; 
+}
 /* Responsive Layout for screens up to 1024px */
 @media (max-width: 1024px) {
   .myContainer {

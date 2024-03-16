@@ -14,42 +14,75 @@ import toast, { Toaster } from "react-hot-toast";
 import playBtn from "@/public/audioPlayBtn.svg";
 import pauseBtn from "@/public/audioPauseBtn.svg";
 import Image from "next/image";
-
+import '@/app/globals.css'
 const CardButtons = ({ dua }) => {
   const [play, setPlay] = useState(false);
-  const [loop, setLoop] = useState(false)
+  const [loop, setLoop] = useState(false);
+  const [currentPlayTime, setCurrentPlayTime] = useState(0);
+  const [duration, setDuration] = useState(0);
   const audioRef = useRef();
+
   //   function for play and pause
   const togglePlay = () => {
     setPlay(!play);
   };
 
-  
   // change the state of play when audio end
   useEffect(() => {
+    const audioElement = audioRef.current;
     const handleEnded = () => {
       setPlay(false); // Change play state to false when audio ends
     };
-    if (audioRef.current) {
-    audioRef.current.addEventListener('ended', handleEnded); // Add event listener for 'ended' event
+    if (audioElement) {
+      audioRef.current.addEventListener("ended", handleEnded); // Add event listener for 'ended' event
       // Cleanup function to remove event listener when component unmounts or play state changes
       return () => {
-        audioRef.current.removeEventListener('ended', handleEnded);
+        audioElement.removeEventListener("ended", handleEnded);
       };
     }
   }, []);
 
   useEffect(() => {
-
     if (audioRef.current) {
       if (play) {
         audioRef.current.play();
       } else {
         audioRef.current.pause();
       }
-        audioRef.current.loop = loop;
+      audioRef.current.loop = loop;
     }
   }, [play, loop]);
+
+  // Audio time calculation
+  useEffect(() => {
+    const audioElement = audioRef.current;
+
+    // Function for Time set on tha state
+    const handleTimeUpdate = () => {
+      setCurrentPlayTime(audioElement.currentTime);
+      setDuration(audioElement.duration);
+    };
+
+    if (audioElement) {
+      audioElement.addEventListener("timeupdate", handleTimeUpdate);
+
+      // Cleanup function to remove event listener when component unmounts or audio element changes
+      return () => {
+        audioElement.removeEventListener("timeupdate", handleTimeUpdate);
+      };
+    }
+  }, [audioRef]);
+
+  // Function for format time in HH:MM:SS
+  const FormatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+
+    return `${String(minutes).padStart(2, "0")}: ${String(seconds).padStart(
+      2,
+      "0"
+    )}`;
+  };
 
   let previousBookmarks = null;
   if (typeof window !== "undefined") {
@@ -221,9 +254,32 @@ const CardButtons = ({ dua }) => {
               <Image src={play ? playBtn : pauseBtn} alt="control button" />
             </button>
             <audio ref={audioRef} src={dua.audio} />
-            {play && <div>
-              <button onClick={()=>setLoop(!loop)}><ImLoop className={`text-2xl ${loop?"text-slate-900": "text-slate-500"}`}/></button>
-              </div>}
+            {play && (
+              <div>
+                <input
+                  type="range"
+                  min={0}
+                  max={duration}
+                  value={currentPlayTime}
+                  onChange={(e) => {
+                    const time = parseFloat(e.target.value);
+                    audioRef.current.currentTime = time;
+                    setCurrentPlayTime(time);
+                  }}
+                  className="w-[130px] bg-slate-300 h-1 rounded-full outline-none"
+                />
+                <span className="text-slate-600 mr-4">
+                  {FormatTime(duration - currentPlayTime)}
+                </span>
+                <button onClick={() => setLoop(!loop)}>
+                  <ImLoop
+                    className={`text-xl ${
+                      loop ? "text-slate-900" : "text-slate-500"
+                    }`}
+                  />
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

@@ -68,13 +68,22 @@ const CategoryData = ({ categories }) => {
                         >
                           {subCategory.subcat_name_en}
                         </h5>
+
+                        {/* Dua name of sub category */}
                         <div>
                           {selectedSubCat === subCategory.subcat_id &&
                             subCatDua.map((item) => (
                               <a
                                 key={item.dua_id}
-                                href={"dua_id_" + item.dua_id}
+                                href={"#dua_id_" + item.dua_id}
                                 className="block"
+                                onClick={(e) => {
+                                  e.preventDefault(); // Prevent default anchor tag behavior
+                                  const outletDiv = document.getElementById(`dua_id_${item.dua_id}`);
+                                  if (outletDiv) {
+                                    outletDiv.scrollIntoView({ behavior: "smooth" }); // Scroll to the outlet's div smoothly
+                                  }
+                                }}
                               >
                                 <div className="flex">
                                   <Image

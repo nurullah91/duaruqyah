@@ -25,7 +25,6 @@ const CategoryDua = async ({ params }) => {
 
     const categoryId = params.categoryId;
     const duas = await getDuas(categoryId);
-  
 
     return (
         <div className='h-[calc(100vh-80px)]'>
@@ -33,11 +32,11 @@ const CategoryDua = async ({ params }) => {
             <Toaster/>
             <div className='h-full overflow-auto'>
                 {
-                    duas.map((dua, index) => <div id={dua.dua_id} className='mb-5 p-6 bg-base-100 rounded-xl' key={dua.dua_id}>
+                    duas.map((dua) => <div id={dua.dua_id} className='mb-5 p-6 bg-base-100 rounded-xl' key={dua.dua_id}>
 
                         <div className='flex items-center gap-3'>
                             <Image src={duaCardLogo} alt='icon' />
-                            <h3 className="font-semibold text-green-600">{index + 1}. {dua.dua_name_en}</h3>
+                            <h3 className="font-semibold text-green-600">{dua.dua_id}. {dua.dua_name_en}</h3>
                         </div>
 
                         <div className='text-xl'>

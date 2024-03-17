@@ -1,9 +1,11 @@
-import React from "react";
 import { FaBars } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
-import duar_gurutto from "@/public/duar_gurutto.svg";
-import Image from "next/image";
-import Link from "next/link";
+import dynamic from 'next/dynamic';
+// Importing curd buttons in client side cause Card Buttons is client component
+const CategoryData = dynamic(() => import('@/app/Components/CategoryData/CategoryData'), {
+  ssr: false, // Disable server-side rendering for client component import
+});
+
 async function getCategories() {
   const res = await fetch("http://localhost:5000/api/categories", {
     next: {
@@ -15,7 +17,6 @@ async function getCategories() {
 
 const Categories = async () => {
   const categories = await getCategories();
-  // console.log(categories);
 
   return (
     <div>
@@ -42,34 +43,19 @@ const Categories = async () => {
                 </h4>
                 <form>
                   <div className="mx-4 mt-3 flex items-center border p-3 rounded-md border-slate-300 focus:border-green-500">
-                  <div className="mr-2"><IoIosSearch className='text-2xl'/></div>
+                    <div className="mr-2">
+                      <IoIosSearch className="text-2xl" />
+                    </div>
                     <input
                       type="text"
                       placeholder="Search categories"
                       className="w-full flex-shrink rounded-md border-none outline-none"
                     />
-                    
                   </div>
                 </form>
               </div>
               <div className="p-4 h-[calc(100vh-210px)] overflow-auto">
-                {categories.map((category) => (
-                  <Link href={`/duas/${category.cat_id}`} key={category.id}>
-                    <div className="mt-5 flex gap-4">
-                      <div className="p-3 rounded-md bg-slate-100">
-                        <Image
-                          className="scale-75"
-                          src={duar_gurutto}
-                          alt="icon"
-                        />
-                      </div>
-                      <div>
-                        <h3 className="text-xl">{category.cat_name_en}</h3>
-                        <p>Sub Category: {category.no_of_subcat}</p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+               <CategoryData categories={categories}/>
               </div>
             </ul>
           </div>

@@ -15,9 +15,9 @@ const LeftNav = () => {
     return (
         <div className='flex flex-row items-center p-5 rounded-badge bg-base-100 lg:h-[calc(100vh-40px)] lg:flex-col fixed lg:static bottom-0 w-full justify-between lg:w-fit lg:mt-6 mx-6'>
             
-            <div className='p-3 rounded-full w-fit lg:'>
+            <div className='w-fit'>
                 <Link href={'/'}>
-                    <Image width={50} src={dua} alt='Dua'/>
+                    <Image className='' width={50} src={dua} alt='Dua'/>
                     </Link>
             </div>
             <div className='bg-slate-200 p-2 rounded-full w-fit lg:mt-6'>

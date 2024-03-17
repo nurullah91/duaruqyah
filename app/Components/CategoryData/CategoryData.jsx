@@ -2,35 +2,39 @@
 import Image from "next/image";
 import Link from "next/link";
 import duar_gurutto from "@/public/duar_gurutto.svg";
+import arrow from "@/public/duaarrow.svg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CategoryData = ({ categories }) => {
   const [selectedCat, setSelectedCat] = useState(1);
-const [subCategories, setSubCategories] = useState([]);
-const [selectedSubCat, setSelectedSubCat] = useState(null);
-const [subCatDua, setSubCatDua] = useState([]);
-// Every categories sub category
-  useEffect(()=>{
+  const [subCategories, setSubCategories] = useState([]);
+  const [selectedSubCat, setSelectedSubCat] = useState(0);
+  const [subCatDua, setSubCatDua] = useState([]);
+
+  // Every categories sub category
+  useEffect(() => {
     const url = `http://localhost:5000/api/subcategories/${selectedCat}`;
-    axios.get(url)
-    .then((result)=>{
-        setSubCategories(result.data)
-    }).catch((err)=>{
+    axios
+      .get(url)
+      .then((result) => {
+        setSubCategories(result.data);
+      })
+      .catch((err) => {
         console.log(err);
-    })
+      });
+  }, [selectedCat]);
 
-  },[selectedCat])
+  //  Sub category dua fetch
+  useEffect(() => {
+    const url = `http://localhost:5000/api/dua/subCategory/${selectedSubCat}`;
+    axios
+      .get(url)
+      .then((result) => setSubCatDua(result.data))
+      .catch((err) => console.log(err));
+  }, [selectedSubCat]);
 
-//  Sub category dua fetch
-useEffect(()=>{
-    const url = `http://localhost:5000/api/dua/subCategory/${selectedSubCat}`
-    axios.get(url)
-    .then((result)=>setSubCatDua(result.data))
-    .catch((err)=>console.log(err))
-},[selectedSubCat])
-
-
+  console.log(subCatDua);
   return (
     <div>
       {categories.map((category) => (
@@ -46,18 +50,49 @@ useEffect(()=>{
               </div>
             </div>
             {selectedCat === category.cat_id && (
-              <div className="border-l-2 border-dashed border-[#00A661] ml-10 px-2">
-                {subCategories.map(subCategory=>{
-                <div className="flex flex-col justify-start items-start" key={subCategory.subcat_id} >                    
-                <h5 onClick={()=>setSelectedSubCat(subCategory.subcat_id)} className="font-semibold block my-2 text-[#00A661]">{subCategory.subcat_name_en}</h5>
-                <div>
-                    {subCatDua.map((item)=>{
-                        <a href={item.dua_id}>{item.dua_name_en}</a>
-                    })}
-                </div>
-                </div>
-            })}
-                
+              <div className="border-l-2 border-dotted border-[#00A661] ml-6">
+                {subCategories.map((subCategory) => (
+                  <div
+                    key={subCategory.subcat_id}
+                    className="flex flex-col justify-start items-start gap-y-2 ml-3"
+                  >
+                    <div className="flex flex-row my-2">
+                      <div className="bg-[#00A661] -translate-x-4 mt-1.5 w-1.5 rounded-full h-1.5"></div>
+
+                      <div className="flex flex-col justify-start items-start">
+                        <h5
+                          onClick={() =>
+                            setSelectedSubCat(subCategory.subcat_id)
+                          }
+                          className="font-semibold block my-2 text-[#00A661]"
+                        >
+                          {subCategory.subcat_name_en}
+                        </h5>
+                        <div>
+                          {selectedSubCat === subCategory.subcat_id &&
+                            subCatDua.map((item) => (
+                              <a
+                                key={item.dua_id}
+                                href={"dua_id_" + item.dua_id}
+                                className="block"
+                              >
+                                <div className="flex">
+                                  <Image
+                                    className="-translate-y-1 mr-2"
+                                    src={arrow}
+                                    alt="arrow"
+                                  />
+                                  <p className="text-2xs my-3 text-left w-[95%] dark:text-gray-300">
+                                    {item.dua_name_en}
+                                  </p>
+                                </div>
+                              </a>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
           </div>

@@ -9,12 +9,12 @@ import axios from "axios";
 const CategoryData = ({ categories }) => {
   const [selectedCat, setSelectedCat] = useState(1);
   const [subCategories, setSubCategories] = useState([]);
-  const [selectedSubCat, setSelectedSubCat] = useState(0);
+  const [selectedSubCat, setSelectedSubCat] = useState(null);
   const [subCatDua, setSubCatDua] = useState([]);
 
   // Every categories sub category
   useEffect(() => {
-    const url = `http://localhost:5000/api/subcategories/${selectedCat}`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subcategories/${selectedCat}`;
     axios
       .get(url)
       .then((result) => {
@@ -25,16 +25,17 @@ const CategoryData = ({ categories }) => {
       });
   }, [selectedCat]);
 
-  //  Sub category dua fetch
-  useEffect(() => {
-    const url = `http://localhost:5000/api/dua/subCategory/${selectedSubCat}`;
+  
+
+  const handleSelect = (id) =>{
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dua/subCategory/${id}`;
     axios
       .get(url)
       .then((result) => setSubCatDua(result.data))
-      .catch((err) => console.log(err));
-  }, [selectedSubCat]);
-
-  console.log(subCatDua);
+      .catch((err) => console.log(err))
+      .finally(()=>setSelectedSubCat(id))
+  }
+ 
   return (
     <div>
       {categories.map((category) => (
@@ -62,7 +63,7 @@ const CategoryData = ({ categories }) => {
                       <div className="flex flex-col justify-start items-start">
                         <h5
                           onClick={() =>
-                            setSelectedSubCat(subCategory.subcat_id)
+                            handleSelect(subCategory.subcat_id)
                           }
                           className="font-semibold block my-2 text-[#00A661]"
                         >

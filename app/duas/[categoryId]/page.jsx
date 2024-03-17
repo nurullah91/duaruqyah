@@ -12,11 +12,14 @@ const CardButtons = dynamic(() => import('@/app/Components/CardButtons/CardButto
 
 
 async function getDuas(categoryId) {
-    const res = await fetch(`http://localhost:5000/api/dua/${categoryId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dua/${categoryId}`, {
         next: {
             revalidate: 60
         }
     })
+    if(!res.ok){
+        throw new Error("dua fetch failed")
+      }
     return res.json()
 }
 

@@ -7,11 +7,14 @@ const CategoryData = dynamic(() => import('@/app/Components/CategoryData/Categor
 });
 
 async function getCategories() {
-  const res = await fetch("http://localhost:5000/api/categories", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/categories`, {
     next: {
       revalidate: 60,
     },
   });
+  if(!res.ok){
+    throw new Error("category fetch failed")
+  }
   return res.json();
 }
 

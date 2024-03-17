@@ -103,7 +103,7 @@ const CardButtons = ({ dua }) => {
   }
 
   const handleCopy = () => {
-    const duaText = document.getElementById(dua.dua_id).innerText;
+    const duaText = document.getElementById("dua_id_"+dua.dua_id).innerText;
     const textToCopy = `${duaText}
         
         Copied from:

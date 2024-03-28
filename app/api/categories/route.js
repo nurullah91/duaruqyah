@@ -1,15 +1,18 @@
-import { dbconnect } from "@/app/lib/dbconnect";
+import { promises as fs } from "fs";
 
-export async function GET(req, res) {
-  let db = null;
-  // Open a new connection if there is none
-  if (!db) {
-    db = await dbconnect();
+export async function GET() {
+  
+  try {
+    const categories = await fs.readFile(
+      process.cwd() + "/app/api/categories/categories.json",
+      "utf8"
+    );
+
+    return new Response(categories, {
+      headers: { "content-type": "application/json" },
+      status: 200,
+    });
+  } catch {
+    return new Response(JSON.stringify({ Error: "internal server error" }));
   }
-
-  const category = await db.all("SELECT * FROM category");
-  return new Response(JSON.stringify(category), {
-    headers: { "content-type": "application/json" },
-    status: 200,
-  });
 }

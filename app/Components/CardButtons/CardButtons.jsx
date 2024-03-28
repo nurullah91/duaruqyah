@@ -268,7 +268,7 @@ const CardButtons = ({ dua }) => {
                     audioRef.current.currentTime = time;
                     setCurrentPlayTime(time);
                   }}
-                  className=" appearance-none w-[130px] bg-slate-300 h-1 rounded-full outline-none"
+                  className="audio-progress w-[130px] bg-slate-300 h-1 rounded-full outline-none"
                 />
                 <span className="text-slate-600 mx-4">
                   {FormatTime(duration - currentPlayTime)}

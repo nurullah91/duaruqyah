@@ -1,17 +1,23 @@
-import { dbconnect } from "@/app/lib/dbconnect";
+import { promises as fs } from "fs";
 
-export async function GET(req, {params}) {
-  const {categoryId} = params;
+export async function GET(req, { params }) {
+  const {categoryId} = params
+  
+  try {
+    const data = await fs.readFile(
+      process.cwd() + "/app/api/subcategories/sub_category.json",
+      "utf8"
+    );
 
-  let db = null;
-  // Open a new connection if there is none
-  if (!db) {
-    db = await dbconnect();
+    const subcategories = JSON.parse(data);
+    //add a + before categoryId to convert category id string to number
+    const selectedSubcategory = subcategories.filter((subCat)=>subCat.cat_id === +categoryId)
+
+    return new Response(JSON.stringify(selectedSubcategory), {
+      headers: { "content-type": "application/json" },
+      status: 200,
+    });
+  } catch {
+    return new Response(JSON.stringify({ Error: "internal server error" }));
   }
-
-  const subCategory = await db.all('SELECT * FROM sub_category WHERE cat_id = ?', [categoryId]);
-  return new Response(JSON.stringify(subCategory), {
-    headers: { "content-type": "application/json" },
-    status: 200,
-  });
 }

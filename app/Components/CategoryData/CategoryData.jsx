@@ -28,7 +28,7 @@ const CategoryData = ({ categories }) => {
   
 
   const handleSelect = (id) =>{
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dua/subCategory/${id}`;
+    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dua/subcategory/${id}`;
     axios
       .get(url)
       .then((result) => setSubCatDua(result.data))

@@ -21,12 +21,17 @@
 }
 
 /* Player control button styles */
-.audio-control input::-webkit-slider-thumb{
+.audio-progress{
+  appearance: none;
+  accent-color: #00A661;
+}
+.audio-progress::-webkit-slider-thumb{
+  -webkit-appearance: none;
 height: 15px;
 width: 15px;
 border-radius: 50%;
 background: #00A661;
--webkit-appearance: none;
+cursor: pointer;
 }
 
 /* Responsive Layout for screens up to 1024px */

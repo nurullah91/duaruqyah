@@ -1,15 +1,21 @@
-import { dbconnect } from "@/app/lib/dbconnect";
+import { promises as fs } from "fs";
 
-export async function GET(req, {params}) {
-    const {categoryId} = params
-  let db = null;
-  if (!db) {
-    db = await dbconnect();
+export async function GET(req, { params }) {
+  const { categoryId } = params;
+
+  try {
+    const data = await fs.readFile(
+      process.cwd() + "/app/api/dua/duas.json",
+      "utf8"
+    );
+    const duas = JSON.parse(data);
+    const selectedDuas = duas.filter((dua) => dua.cat_id === +categoryId); //this + convert category id string to number
+
+    return new Response(JSON.stringify(selectedDuas), {
+      headers: { "content-type": "application/json" },
+      status: 200,
+    });
+  } catch {
+    return new Response(JSON.stringify({ Error: "internal server error" }));
   }
-
-  const dua = await db.all('SELECT * FROM dua WHERE cat_id = ?', [categoryId]);
-  return new Response(JSON.stringify(dua), {
-    headers: { "content-type": "application/json" },
-    status: 200,
-  });
 }

@@ -1,15 +1,18 @@
-import { dbconnect } from "@/app/lib/dbconnect";
+import { promises as fs } from "fs";
 
 export async function GET(req, res) {
-  let db = null;
-  // Open a new connection if there is none
-  if (!db) {
-    db = await dbconnect();
-  }
+  
+  try {
+    const subcategories = await fs.readFile(
+      process.cwd() + "/app/api/subcategories/sub_category.json",
+      "utf8"
+    );
 
-  const subCategory = await db.all("SELECT * FROM sub_category");
-  return new Response(JSON.stringify(subCategory), {
-    headers: { "content-type": "application/json" },
-    status: 200,
-  });
+    return new Response(subcategories, {
+      headers: { "content-type": "application/json" },
+      status: 200,
+    });
+  } catch {
+    return new Response(JSON.stringify({ Error: "internal server error" }));
+  }
 }

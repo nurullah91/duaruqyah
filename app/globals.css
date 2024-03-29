@@ -5,10 +5,16 @@
 
 .myContainer {
   display: grid;
-  grid-template-columns: 115px 340px 2fr;
+  grid-template-columns: 115px 1fr;
   grid-template-rows: auto auto; 
   grid-gap: 10px; 
 }
+.pageContent {
+  display: grid;
+  grid-template-columns:340px 2fr;
+  grid-template-rows: auto auto;
+}
+
 
 .leftNav {
   grid-column: 1;
@@ -37,9 +43,12 @@ cursor: pointer;
 /* Responsive Layout for screens up to 1024px */
 @media (max-width: 1024px) {
   .myContainer {
-    grid-template-columns: 100px 1fr;
+    grid-template-columns: 1fr;
   }
-
+.pageContent{
+  grid-template-columns: 1fr;
+  row-gap: 10px;
+}
   .navBar {
     grid-column: 1 / span 2; /* Span both columns */
     grid-row: auto;

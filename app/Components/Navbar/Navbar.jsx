@@ -90,7 +90,7 @@ const Navbar = () => {
                                 {/* Page content here */}
                                 <label htmlFor="my-drawer-4"><RiSettings3Fill className='text-2xl text-green-500 mr-3' /></label>
                             </div>
-                            <div className="drawer-side">
+                            <div className="drawer-side z-10">
                                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
                                 <ul className="menu p-4 w-80 min-h-full bg-base-100 text-base-content rounded-l-badge">
                                     {/* Sidebar content here */}

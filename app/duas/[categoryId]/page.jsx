@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import { Toaster } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
+import Categories from '@/app/Components/Categories/Categories';
 
 // Importing curd buttons in client side cause Card Buttons is client component
 const CardButtons = dynamic(() => import('@/app/Components/CardButtons/CardButtons'), {
@@ -12,7 +13,7 @@ const CardButtons = dynamic(() => import('@/app/Components/CardButtons/CardButto
 
 
 async function getDuas(categoryId) {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dua/${categoryId}`, {
+    const res = await fetch(`${process.env.BASE_URL}/api/dua/${categoryId}`, {
         next: {
             revalidate: 60
         }
@@ -30,10 +31,13 @@ const CategoryDua = async ({ params }) => {
     const duas = await getDuas(categoryId);
 
     return (
-        <div className='h-[calc(100vh-80px)]'>
+        <div className='h-[calc(100vh-105px)] lg:h-[calc(100vh-80px)] pageContent'>
             {/* React hot toast */}
             <Toaster/>
-            <div className='h-full overflow-auto'>
+            <div className="h-fit">
+              <Categories></Categories>
+            </div>
+            <div className='h-full overflow-auto mx-3'>
                 {
                     duas.map((dua) => <div id={"dua_id_"+dua.dua_id} className='mb-5 p-6 bg-base-100 rounded-xl' key={dua.dua_id}>
 

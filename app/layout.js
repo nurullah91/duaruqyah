@@ -23,10 +23,7 @@ export default function RootLayout({ children }) {
 
             <div className="navBar">
               <Navbar></Navbar>
-            </div>
-            <div className="h-fit">
-              <Categories></Categories>
-            </div>
+            </div>            
             <div className="h-fit">{children}</div>
           </div>
         </div>

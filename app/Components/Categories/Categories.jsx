@@ -1,31 +1,22 @@
 import { FaBars } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import dynamic from 'next/dynamic';
+import { getAllCategories } from "@/utils/getAllCategories";
 // Importing curd buttons in client side cause Card Buttons is client component
 const CategoryData = dynamic(() => import('@/app/Components/CategoryData/CategoryData'), {
   ssr: false, // Disable server-side rendering for client component import
 });
 
-async function getCategories() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/categories`, {
-    next: {
-      revalidate: 60,
-    },
-  });
-  if(!res.ok){
-    throw new Error("category fetch failed")
-  }
-  return res.json();
-}
 
 const Categories = async () => {
-  const categories = await getCategories();
+  const categories = await getAllCategories();
+  // console.log(categories);
 
   return (
     <div>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col items-center justify-center">
+        <div className=" lg:hidden drawer-content flex flex-col items-start ml-4 bg-white px-4 py-2 rounded-lg shadow-md justify-center">
           {/* Page content here */}
           <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
             <FaBars />

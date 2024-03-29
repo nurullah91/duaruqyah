@@ -13,22 +13,22 @@ const CategoryData = ({ categories }) => {
   const [subCatDua, setSubCatDua] = useState([]);
 
   // Every categories sub category
-  useEffect(() => {
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/subcategories/${selectedCat}`;
-    axios
-      .get(url)
-      .then((result) => {
-        setSubCategories(result.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [selectedCat]);
+  // useEffect(() => {
+  //   const url = `${process.env.BASE_URL}/api/subcategories/${selectedCat}`;
+  //   axios
+  //     .get(url)
+  //     .then((result) => {
+  //       setSubCategories(result.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // }, [selectedCat]);
 
   
 
   const handleSelect = (id) =>{
-    const url = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/dua/subcategory/${id}`;
+    const url = `${process.env.BASE_URL}/api/dua/subcategory/${id}`;
     axios
       .get(url)
       .then((result) => setSubCatDua(result.data))

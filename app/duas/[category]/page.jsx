@@ -40,7 +40,7 @@ const CategoryDua = async ({ params, searchParams }) => {
             <div className="h-fit">
               <Categories searchParams={searchParams} categoryId={categoryId}></Categories>
             </div>
-            <div className='h-full overflow-auto mx-3'>
+            <div className='h-full overflow-auto mx-auto w-[97%]'>
                 {
                     duas.map((dua) => <div id={"dua_id_"+dua.dua_id} className='mb-5 p-6 bg-base-100 rounded-xl' key={dua.dua_id}>
 

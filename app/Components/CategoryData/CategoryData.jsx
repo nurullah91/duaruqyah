@@ -5,6 +5,7 @@ import { getSubCategories } from "@/utils/getSubCategories";
 import { getSubCategoryDua } from "@/utils/getSubCategoryDua";
 import DuasName from "./DuasName";
 
+
 const CategoryData = async ({ categoryId, categories, searchParams }) => {
   const subCategories = await getSubCategories(categoryId);
   const subcategoryId = searchParams.subcategory;

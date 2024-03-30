@@ -1,6 +1,5 @@
 import { FaBars } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
-import dynamic from 'next/dynamic';
 import { getAllCategories } from "@/utils/getAllCategories";
 import CategoryData from "../CategoryData/CategoryData";
 
@@ -17,13 +16,13 @@ const Categories = async ({ categoryId, searchParams }) => {
     <div>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className=" lg:hidden drawer-content flex flex-col items-start ml-4 bg-white px-4 py-2 rounded-lg shadow-md justify-center">
+        <div className=" lg:hidden drawer-content flex flex-col items-start ml-4 bg-white px-4 py-2 rounded-lg shadow-md justify-center z-10">
           {/* Page content here */}
           <label htmlFor="my-drawer-2" className="drawer-button lg:hidden">
             <FaBars />
           </label>
         </div>
-        <div className="drawer-side h-[calc(100vh-93px)]">
+        <div className="drawer-side h-[calc(100vh-93px)] z-10">
           <label
             htmlFor="my-drawer-2"
             aria-label="close sidebar"

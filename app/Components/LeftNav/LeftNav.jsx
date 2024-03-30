@@ -13,9 +13,9 @@ import { IoBook } from "react-icons/io5";
 
 const LeftNav = () => {
     return (
-        <div className='flex flex-row items-center p-5 rounded-badge bg-base-100 lg:h-[calc(100vh-40px)] lg:flex-col fixed lg:static bottom-0 w-full justify-between lg:w-fit lg:mt-6 mx-6'>
+        <div className='flex flex-row justify-between items-center p-5 rounded-badge bg-base-100 lg:h-[calc(100vh-40px)] lg:flex-col fixed lg:static bottom-0 lg:w-fit w-[97vw] lg:mt-6 mx-auto'>
             
-            <div className='w-fit'>
+            <div className='lg:w-fit'>
                 <Link href={'/'}>
                     <Image className='' width={50} src={dua} alt='Dua'/>
                     </Link>
@@ -45,7 +45,7 @@ const LeftNav = () => {
             <div className='bg-slate-200 p-2 rounded-full w-fit lg:mt-2'>
                 <Link href={'/'} className='text-2xl text-slate-500'><IoBook  /></Link>
             </div>
-            <div className='bg-green-600 p-3 rounded-lg w-fit lg:mt-6'>
+            <div className='bg-green-600 lg:p-3 p-2 rounded-lg lg:w-fit lg:mt-6'>
                 <Link href={'/'} className='text-2xl text-base-100'><FaHandHoldingHeart /></Link>
             </div>
             

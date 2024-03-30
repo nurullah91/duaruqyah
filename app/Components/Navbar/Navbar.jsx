@@ -20,9 +20,9 @@ import { IoIosSearch } from "react-icons/io";
 const Navbar = () => {
     return (
         <div>
-            <div className="navbar">
-                <div className="flex-1">
-                    <h2 className="text-2xl">Duas Page</h2>
+            <div className="navbar w-full">
+                <div className="lg:flex-1">
+                    <h2 className="text-2xl hidden lg:block">Duas Page</h2>
                 </div>
                 <div className="flex-none gap-2">
                     <div className="form-control relative">
@@ -90,7 +90,7 @@ const Navbar = () => {
                                 {/* Page content here */}
                                 <label htmlFor="my-drawer-4"><RiSettings3Fill className='text-2xl text-green-500 mr-3' /></label>
                             </div>
-                            <div className="drawer-side z-10">
+                            <div className="drawer-side z-20">
                                 <label htmlFor="my-drawer-4" aria-label="close sidebar" className="drawer-overlay"></label>
                                 <ul className="menu p-4 w-80 min-h-full bg-base-100 text-base-content rounded-l-badge">
                                     {/* Sidebar content here */}

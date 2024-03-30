@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
 
 export default function Home() {
-  return redirect('/duas/1');
+  return redirect('/duas/category-1');
 }

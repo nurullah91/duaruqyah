@@ -5,37 +5,40 @@ import Image from 'next/image';
 import { Toaster } from 'react-hot-toast';
 import dynamic from 'next/dynamic';
 import Categories from '@/app/Components/Categories/Categories';
+import { getCategoriesDua } from '@/utils/getCategoriesDua';
+import CardButtons from '@/app/Components/CardButtons/CardButtons';
 
 // Importing curd buttons in client side cause Card Buttons is client component
-const CardButtons = dynamic(() => import('@/app/Components/CardButtons/CardButtons'), {
-  ssr: false, // Disable server-side rendering for client component import
-});
+// const CardButtons = dynamic(() => import('@/app/Components/CardButtons/CardButtons'), {
+//   ssr: false, // Disable server-side rendering for client component import
+// });
 
 
-async function getDuas(categoryId) {
-    const res = await fetch(`${process.env.BASE_URL}/api/dua/${categoryId}`, {
-        next: {
-            revalidate: 60
-        }
-    })
-    if(!res.ok){
-        throw new Error("dua fetch failed")
-      }
-    return res.json()
-}
+// async function getDuas(categoryId) {
+//     const res = await fetch(`${process.env.BASE_URL}/api/dua/${categoryId}`, {
+//         next: {
+//             revalidate: 60
+//         }
+//     })
+//     if(!res.ok){
+//         throw new Error("dua fetch failed")
+//       }
+//     return res.json()
+// }
 
 
-const CategoryDua = async ({ params }) => {
+const CategoryDua = async ({ params, searchParams }) => {
 
-    const categoryId = params.categoryId;
-    const duas = await getDuas(categoryId);
+    const category = params.category;
+    const categoryId = category.split("-")[1];
+    const duas = await getCategoriesDua(categoryId);
 
     return (
         <div className='h-[calc(100vh-105px)] lg:h-[calc(100vh-80px)] pageContent'>
             {/* React hot toast */}
             <Toaster/>
             <div className="h-fit">
-              <Categories></Categories>
+              <Categories searchParams={searchParams} categoryId={categoryId}></Categories>
             </div>
             <div className='h-full overflow-auto mx-3'>
                 {

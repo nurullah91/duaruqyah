@@ -2,13 +2,14 @@ import { FaBars } from "react-icons/fa";
 import { IoIosSearch } from "react-icons/io";
 import dynamic from 'next/dynamic';
 import { getAllCategories } from "@/utils/getAllCategories";
+import CategoryData from "../CategoryData/CategoryData";
+
+
 // Importing curd buttons in client side cause Card Buttons is client component
-const CategoryData = dynamic(() => import('@/app/Components/CategoryData/CategoryData'), {
-  ssr: false, // Disable server-side rendering for client component import
-});
-
-
-const Categories = async () => {
+// const CategoryData = dynamic(() => import('@/app/Components/CategoryData/CategoryData'), {
+//   ssr: false, // Disable server-side rendering for client component import
+// });
+const Categories = async ({ categoryId, searchParams }) => {
   const categories = await getAllCategories();
   // console.log(categories);
 
@@ -49,7 +50,7 @@ const Categories = async () => {
                 </form>
               </div>
               <div className="p-4 h-[calc(100vh-210px)] overflow-auto">
-               <CategoryData categories={categories}/>
+               <CategoryData categoryId={categoryId} categories={categories} searchParams={searchParams}/>
               </div>
             </ul>
           </div>

@@ -1,46 +1,21 @@
-"use client";
 import Image from "next/image";
 import Link from "next/link";
 import duar_gurutto from "@/public/duar_gurutto.svg";
-import arrow from "@/public/duaarrow.svg";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { getSubCategories } from "@/utils/getSubCategories";
+import { getSubCategoryDua } from "@/utils/getSubCategoryDua";
+import DuasName from "./DuasName";
 
-const CategoryData = ({ categories }) => {
-  const [selectedCat, setSelectedCat] = useState(1);
-  const [subCategories, setSubCategories] = useState([]);
-  const [selectedSubCat, setSelectedSubCat] = useState(null);
-  const [subCatDua, setSubCatDua] = useState([]);
+const CategoryData = async ({ categoryId, categories, searchParams }) => {
+  const subCategories = await getSubCategories(categoryId);
+  const subcategoryId = searchParams.subcategory;
+  const subCategoryDua = await getSubCategoryDua(subcategoryId)
 
-  // Every categories sub category
-  // useEffect(() => {
-  //   const url = `${process.env.BASE_URL}/api/subcategories/${selectedCat}`;
-  //   axios
-  //     .get(url)
-  //     .then((result) => {
-  //       setSubCategories(result.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }, [selectedCat]);
-
-  
-
-  const handleSelect = (id) =>{
-    const url = `${process.env.BASE_URL}/api/dua/subcategory/${id}`;
-    axios
-      .get(url)
-      .then((result) => setSubCatDua(result.data))
-      .catch((err) => console.log(err))
-      .finally(()=>setSelectedSubCat(id))
-  }
- 
   return (
     <div>
       {categories.map((category) => (
-        <Link href={`/duas/${category.cat_id}`} key={category.id}>
-          <div onClick={() => setSelectedCat(category.cat_id)}>
+        <div key={category.id}>
+        <Link href={`/duas/category-${category.cat_id}`} className="block">
+          <div>
             <div className="mt-5 flex gap-4">
               <div className="p-3 rounded-md bg-slate-100">
                 <Image className="scale-75" src={duar_gurutto} alt="icon" />
@@ -50,10 +25,11 @@ const CategoryData = ({ categories }) => {
                 <p>Sub Category: {category.no_of_subcat}</p>
               </div>
             </div>
-            {selectedCat === category.cat_id && (
+            {+categoryId === category.cat_id && (
               <div className="border-l-2 border-dotted border-[#00A661] ml-6">
                 {subCategories.map((subCategory) => (
-                  <div
+                  <Link
+                    href={`?subcategory=${subCategory.subcat_id}`}
                     key={subCategory.subcat_id}
                     className="flex flex-col justify-start items-start gap-y-2 ml-3"
                   >
@@ -61,52 +37,23 @@ const CategoryData = ({ categories }) => {
                       <div className="bg-[#00A661] -translate-x-4 mt-1.5 w-1.5 rounded-full h-1.5"></div>
 
                       <div className="flex flex-col justify-start items-start">
-                        <h5
-                          onClick={() =>
-                            handleSelect(subCategory.subcat_id)
-                          }
-                          className="font-semibold block my-2 text-[#00A661]"
-                        >
+                        <h5 className="font-semibold block my-2 text-[#00A661]">
                           {subCategory.subcat_name_en}
                         </h5>
 
                         {/* Dua name of sub category */}
                         <div>
-                          {selectedSubCat === subCategory.subcat_id &&
-                            subCatDua.map((item) => (
-                              <a
-                                key={item.dua_id}
-                                href={"#dua_id_" + item.dua_id}
-                                className="block"
-                                onClick={(e) => {
-                                  e.preventDefault(); // Prevent default anchor tag behavior
-                                  const outletDiv = document.getElementById(`dua_id_${item.dua_id}`);
-                                  if (outletDiv) {
-                                    outletDiv.scrollIntoView({ behavior: "smooth" }); // Scroll to the outlet's div smoothly
-                                  }
-                                }}
-                              >
-                                <div className="flex">
-                                  <Image
-                                    className="-translate-y-1 mr-2"
-                                    src={arrow}
-                                    alt="arrow"
-                                  />
-                                  <p className="text-2xs my-3 text-left w-[95%] dark:text-gray-300">
-                                    {item.dua_name_en}
-                                  </p>
-                                </div>
-                              </a>
-                            ))}
+                          {+subcategoryId === subCategory.subcat_id && <DuasName subCategoryDua={subCategoryDua}/>}
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
           </div>
         </Link>
+        </div>
       ))}
     </div>
   );

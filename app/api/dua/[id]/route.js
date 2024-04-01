@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 
-export async function GET(req, { params }) {
-  const { categoryId } = params;
+export async function GET( req, { params }) {
+  const { id } = params;
 
   try {
     const data = await fs.readFile(
@@ -9,7 +9,7 @@ export async function GET(req, { params }) {
       "utf8"
     );
     const duas = JSON.parse(data);
-    const selectedDuas = duas.filter((dua) => dua.cat_id === +categoryId); //this + convert category id string to number
+    const selectedDuas = duas.filter((dua) => dua.cat_id === +id); //this + convert category id string to number
 
     return new Response(JSON.stringify(selectedDuas), {
       headers: { "content-type": "application/json" },

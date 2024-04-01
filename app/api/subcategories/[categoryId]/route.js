@@ -5,7 +5,7 @@ export async function GET(req, { params }) {
   
   try {
     const data = await fs.readFile(
-      process.cwd() + "/app/api/subcategories/sub_category.json",
+      process.cwd() + "/sub_category.json",
       "utf8"
     );
 

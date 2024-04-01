@@ -4,7 +4,7 @@ export async function GET(req, { params }) {
   try {
     const { subcategoryId } = params;
     const data = await fs.readFile(
-      process.cwd() + "/app/api/dua/duas.json",
+      process.cwd() + "/duas.json",
       "utf8"
     );
     const duas = JSON.parse(data);

@@ -3,7 +3,7 @@ import { promises as fs } from "fs";
 export async function GET() {
   try {
     const duas = await fs.readFile(
-      process.cwd() + "/app/api/dua/duas.json",
+      process.cwd() + "/duas.json",
       "utf8"
     );
 

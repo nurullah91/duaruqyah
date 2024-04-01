@@ -4,7 +4,7 @@ export async function GET() {
   
   try {
     const categories = await fs.readFile(
-      process.cwd() + "/app/api/categories/categories.json",
+      process.cwd() + "/categories.json",
       "utf8"
     );
 

@@ -1,5 +1,5 @@
 export const getAllCategories = async() =>{
-    const res = await fetch("http://127.0.0.1:3000/api/categories",{
+    const res = await fetch("https://duaruqyah-server-six.vercel.app/api/categories",{
         cache: "force-cache"
     })
     return res.json();

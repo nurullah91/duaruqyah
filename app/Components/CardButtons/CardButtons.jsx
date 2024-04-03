@@ -247,7 +247,7 @@ const CardButtons = ({ dua }) => {
     });
   };
   return (
-    <div className="flex justify-between items-center mt-8">
+    <div className="md:flex justify-between items-center mt-8">
       <Toaster />
       <div>
         {dua.audio && (
@@ -285,7 +285,7 @@ const CardButtons = ({ dua }) => {
           </div>
         )}
       </div>
-      <div className="flex gap-4">
+      <div className="flex gap-4 mt-4">
         <button onClick={handleCopy} title="Copy">
           <IoCopyOutline className="text-slate-500 text-2xl" />
         </button>
